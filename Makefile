@@ -13,19 +13,19 @@ ARCH= -gencode arch=compute_30,code=sm_30 \
 # This is what I use, uncomment if you know your arch and want to specify
 # ARCH= -gencode arch=compute_52,code=compute_52
 
-VPATH=./src/:./examples
+VPATH=./src/:./examples # makefile's search path
 SLIB=libdarknet.so
 ALIB=libdarknet.a
 EXEC=darknet
 OBJDIR=./obj/
 
-CC=gcc
-CPP=g++
-NVCC=nvcc 
-AR=ar
-ARFLAGS=rcs
+CC=gcc # c compiler
+CPP=g++ # cpp compiler
+NVCC=nvcc # cuda compiler
+AR=ar # archive object files
+ARFLAGS=rcs # ar flags
 OPTS=-Ofast
-LDFLAGS= -lm -pthread 
+LDFLAGS= -lm -pthread # -lm math.h for gcc
 COMMON= -Iinclude/ -Isrc/
 CFLAGS=-Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC
 
