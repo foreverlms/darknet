@@ -40,11 +40,11 @@ if (USE_OPENCV)
     add_definitions(-DOPENCV)
 endif ()
 
-add_library(darknet_static STATIC ${DARKNET_SOURCES})
+add_library(darknet STATIC ${DARKNET_SOURCES})
 add_library(darknet_shared SHARED ${DARKNET_SOURCES})
 
 
-add_executable(darknet ${EXEC_SOURCES})
-target_link_libraries(darknet
+add_executable(darknet_exec ${EXEC_SOURCES})
+target_link_libraries(darknet_exec
         ${Threads_LIBRARY}
-        darknet_static)
+        darknet)
