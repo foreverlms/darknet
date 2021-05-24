@@ -2,7 +2,7 @@ GPU=0
 CUDNN=0
 OPENCV=0
 OPENMP=0
-DEBUG=0
+DEBUG=1
 
 ARCH= -gencode arch=compute_30,code=sm_30 \
       -gencode arch=compute_35,code=sm_35 \
@@ -37,6 +37,7 @@ ifeq ($(DEBUG), 1)
 OPTS=-O0 -g
 endif
 
+# 优化level
 CFLAGS+=$(OPTS)
 
 ifeq ($(OPENCV), 1) 
@@ -82,6 +83,7 @@ $(ALIB): $(OBJS)
 $(SLIB): $(OBJS)
 	$(CC) $(CFLAGS) -shared $^ -o $@ $(LDFLAGS)
 
+# % 给每个文件都编译object file
 $(OBJDIR)%.o: %.cpp $(DEPS)
 	$(CPP) $(COMMON) $(CFLAGS) -c $< -o $@
 

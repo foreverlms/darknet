@@ -595,6 +595,7 @@ typedef struct node{
     struct node *prev;
 } node;
 
+// 自定义链表
 typedef struct list{
     int size;
     node *front;

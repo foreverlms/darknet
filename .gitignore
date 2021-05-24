@@ -18,6 +18,8 @@ submission/
 cfg/
 darknet
 .fuse*
+weights
+build
 
 # OS Generated #
 .DS_Store*
@@ -27,3 +29,4 @@ Thumbs.db
 *.swp
 libdarknet.a
 libdarknet.so
+.idea
