@@ -2,14 +2,22 @@ cmake_minimum_required(VERSION 3.14)
 
 project(darknet)
 
-set(CMAKE_BUILD_TYPE "Debug")
-set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
-set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
-set(CMAKE_C_FLAGS_DEBUG  "$ENV{CFLAGS} -g2 -O0 -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC")
-set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -Ofast -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC")
+message(STATUS "${CMAKE_BUILD_TYPE}")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(STATUS "Building Darknet in Debug Mode...")
+    set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+    set(CMAKE_C_FLAGS_DEBUG  "$ENV{CFLAGS} -g2 -O0 -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(STATUS "Building Darknet in Release Mode...")
+    set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+    set(CMAKE_C_FLAGS_RELEASE "$ENV{CFLAGS} -Ofast -Wall -Wno-unused-result -Wno-unknown-pragmas -Wfatal-errors -fPIC")
+endif()
 
 set(CMAKE_CXX_STANDARD 14)
 
+option(USE_CUNDNN "Build with cuda." OFF)
+option(USE_OPENCV "Process image with opencv." OFF)
+option(USE_OPENMP "Build with openmp." OFF)
 
 include_directories(
         include
@@ -23,10 +31,6 @@ list(TRANSFORM DARKNET_SOURCES PREPEND "./src/")
 set(EXEC_STRING "captcha.c lsd.c super.c art.c tag.c cifar.c go.c rnn.c segmenter.c regressor.c classifier.c coco.c yolo.c detector.c nightmare.c instance-segmenter.c darknet.c")
 string(REPLACE " " ";" EXEC_SOURCES ${EXEC_STRING})
 list(TRANSFORM EXEC_SOURCES PREPEND "./examples/")
-
-option(USE_CUNDNN "Build with cuda." OFF)
-option(USE_OPENCV "Process image with opencv." OFF)
-option(USE_OPENMP "Build with openmp." OFF)
 
 set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)

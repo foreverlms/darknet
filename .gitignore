@@ -30,3 +30,5 @@ Thumbs.db
 libdarknet.a
 libdarknet.so
 .idea
+cmake-build-debug
+cmake-build-release
